@@ -15,16 +15,27 @@ struct FloatingAddButton: View {
             Spacer()
             HStack {
                 Spacer()
-                Button {
+                Button (action: {
                     showAddTask = true
-                } label: {
-                    Image(systemName: "plus.circle.fill")
-                        .font(.system(size: 60))
-                        .foregroundColor(.black)
-                        .shadow(radius: 4)
+                }) {
+                    ZStack {
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 60, height: 60)
+                            .shadow(color: Color.black.opacity(0.1), radius: 4, x: 0, y: 2)
+                        Image(systemName: "plus")
+                            .font(.system(size: 28, weight: .bold))
+                            .foregroundColor(.black)
+                    }
                 }
-                .padding()
+                .padding(.trailing, 24)
+                .padding(.bottom, 24)
             }
         }
     }
 }
+
+#Preview {
+    TaskListView()
+}
+

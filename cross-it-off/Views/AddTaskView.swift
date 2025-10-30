@@ -53,3 +53,7 @@ struct AddTaskView: View {
         .presentationDetents([.fraction(0.25), .medium])
     }
 }
+
+#Preview {
+    TaskListView()
+}
