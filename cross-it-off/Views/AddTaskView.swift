@@ -11,6 +11,8 @@ struct AddTaskView: View {
     @ObservedObject var viewModel: TaskViewModel
     @Environment(\.dismiss) var dismiss
     @State private var newTaskTitle = ""
+    @State private var showError = false
+    
     
     var body: some View {
         VStack(spacing: 20) {
@@ -31,11 +33,15 @@ struct AddTaskView: View {
             
             // Add button
             Button(action: {
-                guard !newTaskTitle.isEmpty else { return }
-                viewModel.addTask(title: newTaskTitle)
-                dismiss()
-            })
-            {
+                let trimmedTitle = newTaskTitle.trimmingCharacters(in: .whitespacesAndNewlines)
+                
+                if trimmedTitle.isEmpty {
+                    showError = true
+                } else {
+                    viewModel.addTask(title: trimmedTitle)
+                    dismiss()
+                }
+            }) {
                 Text("Add Task")
                     .fontWeight(.medium)
                     .frame(maxWidth: .infinity)
@@ -51,6 +57,9 @@ struct AddTaskView: View {
         .padding(.top, 16)
         .background(Color(.systemGray5).ignoresSafeArea())
         .presentationDetents([.fraction(0.25), .medium])
+        .alert("Task cannot be empty", isPresented: $showError) {
+            Button("OK", role: .cancel) { }
+        }
     }
 }
 
