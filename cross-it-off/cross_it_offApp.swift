@@ -11,7 +11,7 @@ import SwiftUI
 struct cross_it_offApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TaskListView()
         }
     }
 }
