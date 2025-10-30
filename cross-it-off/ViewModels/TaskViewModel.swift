@@ -18,4 +18,6 @@ class TaskViewModel: ObservableObject {
         let newTask = Task(title: title, isCompleted: false)
         tasks.append(newTask)
     }
+    
+    
 }

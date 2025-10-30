@@ -22,3 +22,7 @@ struct ContentView: View {
 #Preview {
     ContentView()
 }
+
+// notes
+// Source Control Navigator -> stage all changes -> commit -> push
+

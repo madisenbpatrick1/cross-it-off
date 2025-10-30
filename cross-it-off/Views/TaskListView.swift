@@ -8,41 +8,19 @@ import SwiftUI
 
 struct TaskListView: View {
     @StateObject private var viewModel = TaskViewModel()
-    @State private var newTaskTitle = ""
+    @State private var showAddTask = false
     
     var body: some View {
         NavigationView {
-            VStack {
-                // Task List
-                List {
-                    ForEach(viewModel.tasks) { task in
-                        HStack {
-                            Text(task.title)
-                            Spacer()
-                            if task.isCompleted {
-                                Image(systemName: "checkmark.circle.fill")
-                                    .foregroundColor(.green)
-                            }
-                        }
-                    }
-                }
-                .navigationTitle("Check It Off ✅")
-                // Add Task Input Section
-                HStack{
-                    TextField("Enter new Task", text: $newTaskTitle)
-                        .textFieldStyle(RoundedBorderTextFieldStyle())
-                        .padding(.horizontal)
-                    Button(action: {
-                        if !newTaskTitle.isEmpty {
-                            viewModel.addTask(title: newTaskTitle)
-                            newTaskTitle=""
-                        }
-                    }) {
-                        Image(systemName: "plus.circle.fill")
-                            .font(.title2)
-                    }.padding(.trailing)
-                }.padding(.top)
+            ZStack {
+                TaskListContentView(ViewModel: viewModel)
+                
+                FloatingAddButton(showAddTask: $showAddTask)
             }
+            .sheet(isPresented: $showAddTask) {
+                AddTaskView(viewModel: viewModel)
+            }
+            .navigationTitle("Check It Off ✅")
         }
     }
 }
