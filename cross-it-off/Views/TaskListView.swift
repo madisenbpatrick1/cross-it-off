@@ -13,7 +13,9 @@ struct TaskListView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                TaskListContentView(ViewModel: viewModel)
+                Color(.systemGray6)
+                    .ignoresSafeArea()
+                TaskListContentView(viewModel: viewModel)
                 
                 FloatingAddButton(showAddTask: $showAddTask)
             }
@@ -21,6 +23,7 @@ struct TaskListView: View {
                 AddTaskView(viewModel: viewModel)
             }
             .navigationTitle("Check It Off ✅")
+//            .navigationBarTitleDisplayMode(.line)
         }
     }
 }

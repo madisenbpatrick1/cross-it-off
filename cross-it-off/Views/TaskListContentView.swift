@@ -8,23 +8,41 @@
 import SwiftUI
 
 struct TaskListContentView: View {
-    @ObservedObject var ViewModel: TaskViewModel
+    @ObservedObject var viewModel: TaskViewModel
     
     var body: some View {
-        List {
-            ForEach(ViewModel.tasks) {task in
-                HStack {
-                    Text(task.title)
-                    Spacer()
-                    if task.isCompleted {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(.green)
+        ScrollView {
+            LazyVStack(spacing: 12) { // cleaner spacing than List
+                ForEach(viewModel.tasks) { task in
+                    HStack {
+                        Text(task.title)
+                            .font(.system(size: 18))
+                            .foregroundColor(task.isCompleted ? .gray : .black)
+                            .strikethrough(task.isCompleted, color: .gray)
+                        
+                        Spacer()
+                        
+                        Image(systemName: task.isCompleted ? "checkmark.circle.fill" : "circle")
+                            .foregroundColor(task.isCompleted ? .gray : .black)
+                            .font(.system(size: 22))
                     }
+                    .padding(.vertical, 14)
+                    .padding(.horizontal)
+                    .background(Color(.systemGray6))
+                    .cornerRadius(10)
+//                    .onTapGesture {
+//                        viewModel.toggleCompletion(task: task)
+//                    }
                 }
-//                .onTapGesture {
-//                    viewModel.toggleCompletion(task: task)
-//                }
             }
+            .padding(.top, 16)
+            .padding(.horizontal)
         }
+        .background(Color(.systemGray5).ignoresSafeArea()) // subtle page background
     }
+}
+
+
+#Preview {
+    TaskListView()
 }
