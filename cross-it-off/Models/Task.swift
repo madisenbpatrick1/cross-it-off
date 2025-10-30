@@ -7,8 +7,9 @@
 
 import Foundation
 
-struct Task: Identifiable {
-    let id = UUID()
+// Codable - allows it to be easily encoded/decoded
+struct Task: Identifiable, Codable {
+    var id = UUID() // user id unique
     let title: String
     var isCompleted: Bool
 }

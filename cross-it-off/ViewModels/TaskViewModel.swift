@@ -13,4 +13,9 @@ class TaskViewModel: ObservableObject {
         Task(title: "Read 20 pages", isCompleted: true),
         Task(title: "1 hour Workout", isCompleted: false)
     ]
+    
+    func addTask(title: String){
+        let newTask = Task(title: title, isCompleted: false)
+        tasks.append(newTask)
+    }
 }
