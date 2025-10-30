@@ -14,28 +14,42 @@ struct AddTaskView: View {
     
     var body: some View {
         VStack(spacing: 20) {
+            // Header
             Text("Add New Task")
                 .font(.headline)
-
-            TextField("Enter task title", text: $newTaskTitle)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                .foregroundColor(.black)
+                .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
-
-            Button("Add Task") {
-                if !newTaskTitle.isEmpty {
-                    viewModel.addTask(title: newTaskTitle)
-                    dismiss()
-                }
+            
+            // Input
+            TextField("Enter task title", text: $newTaskTitle)
+                .padding(14)
+                .background(Color(.systemGray6))
+                .cornerRadius(8)
+                .foregroundColor(.black)
+                .padding(.horizontal)
+            
+            // Add button
+            Button(action: {
+                guard !newTaskTitle.isEmpty else { return }
+                viewModel.addTask(title: newTaskTitle)
+                dismiss()
+            })
+            {
+                Text("Add Task")
+                    .fontWeight(.medium)
+                    .frame(maxWidth: .infinity)
+                    .padding(14)
+                    .background(Color.black)
+                    .foregroundColor(.white)
+                    .cornerRadius(8)
             }
-            .frame(maxWidth: .infinity)
-            .padding()
-            .background(Color.blue)
-            .foregroundColor(.white)
-            .cornerRadius(10)
             .padding(.horizontal)
             
             Spacer()
         }
+        .padding(.top, 16)
+        .background(Color(.systemGray5).ignoresSafeArea())
         .presentationDetents([.fraction(0.25), .medium])
     }
 }
