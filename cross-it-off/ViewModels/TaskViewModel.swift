@@ -40,7 +40,7 @@ class TaskViewModel: ObservableObject {
     
     //complete task
     func toggleCompletion(task:Task) {
-        withAnimation(.spring(duration: 0.25)) {
+        withAnimation(.spring(duration: 0.45)) {
             if let index = tasks.firstIndex(where: {$0.id == task.id}){
                 tasks[index].isCompleted.toggle()
             }

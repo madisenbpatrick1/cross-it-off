@@ -12,7 +12,7 @@ struct TaskListContentView: View {
     
     var body: some View {
         ScrollView {
-            LazyVStack(spacing: 12) { // cleaner spacing than List
+            LazyVStack(spacing: 10) { // cleaner spacing than List
                 ForEach(viewModel.tasks) { task in
                     HStack {
                         Text(task.title)
@@ -30,12 +30,14 @@ struct TaskListContentView: View {
                     .padding(.horizontal)
                     .background(Color(.systemGray6))
                     .cornerRadius(10)
-//                    .onTapGesture {
-//                        viewModel.toggleCompletion(task: task)
-//                    }
+                    .onTapGesture {
+                        withAnimation(.spring(duration: 0.45)){
+                            viewModel.toggleCompletion(task: task)
+                        }
+                    }
                 }
             }
-            .padding(.top, 16)
+            .padding(.top, 12)
             .padding(.horizontal)
         }
         .background(Color(.systemGray5).ignoresSafeArea()) // subtle page background
