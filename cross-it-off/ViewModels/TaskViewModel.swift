@@ -38,6 +38,17 @@ class TaskViewModel: ObservableObject {
         tasks.append(newTask)
     }
     
+    //complete task
+    func toggleCompletion(task:Task) {
+        withAnimation(.spring(duration: 0.25)) {
+            if let index = tasks.firstIndex(where: {$0.id == task.id}){
+                tasks[index].isCompleted.toggle()
+            }
+        }
+    }
+    
+    
+    // Data and Persistence
     private func saveTasks() {
         do {
             let data = try JSONEncoder().encode(tasks)
